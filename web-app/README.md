@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Project Setup
 
-## Getting Started
+## Overview
+This document provides step-by-step instructions for configuring and running the application in both development and production environments. Follow these steps to ensure the application is set up correctly.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Configuration
+
+### `.env` File Setup
+Copy the following configurations into a `.env` file located at the root of your project:
+
+```env
+DATABASE_URL=postgresql://postgres:123@localhost:5432/mydb
+AUTH_SECRET=
+
+AUTH_GITHUB_ID=
+AUTH_GITHUB_SECRET=
+AUTH_TRUST_HOST=true
+
+NEXT_PUBLIC_URL=http://localhost:3000/
+NEXT_PUBLIC_DOMAIN=localhost:3000
+NEXT_PUBLIC_SCHEME=http://
+
+NEXT_PUBLIC_SOCKET_URL=http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Generate `AUTH_SECRET`
+To generate the `AUTH_SECRET`, run the following command:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npx auth secret
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy the generated `AUTH_SECRET` from `.env.local` to `.env`.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## GitHub OAuth Setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Follow these steps to obtain `AUTH_GITHUB_ID` and `AUTH_GITHUB_SECRET`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Access GitHub**: Go to [GitHub](https://github.com), and click your profile picture in the top-right corner.
+   
+   ![GitHub Profile](./public/github-auth-1.png)
 
-## Deploy on Vercel
+2. **Go to Settings**: Select **Settings** from the dropdown menu.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ![Settings](./public/github-auth-2.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **Navigate to Developer Settings**: Scroll down and select **Developer Settings** in the left sidebar.
+
+   ![Developer Settings](./public/github-auth-3.png)
+
+4. **OAuth Apps**: Under **Developer Settings**, select **OAuth Apps**.
+
+5. **Create a New OAuth App**: Click **New OAuth App** and fill in the required information.
+
+   ![New OAuth App](./public/github-auth-4.png)
+
+6. **Register the Application**: Complete the registration process by clicking **Register Application**.
+
+7. **Generate Client Secret**: After registering the app, click **Generate a new client secret**.
+
+   ![Generate Client Secret](./public/github-auth-5.png)
+
+8. **Copy the Credentials**:
+   - **Client ID**: Copy and paste this value into `AUTH_GITHUB_ID` in your `.env` file.
+   - **Client Secret**: Copy and paste this value into `AUTH_GITHUB_SECRET` in your `.env` file.
+
+9. **Update Application**: Save your changes.
+
+   ![Update Application](./public/github-auth-6.png)
+
+---
+
+## Running the Application
+
+### Development Mode
+To run the application in development mode:
+
+1. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+2. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+The server will be accessible at `http://localhost:3000`.
+
+### Production Mode
+To run the application in production mode:
+
+1. Build the application:
+
+   ```bash
+   npm run build
+   ```
+
+2. Start the production server:
+
+   ```bash
+   npm start
+   ```
+
+The server will be accessible at `http://localhost:3000`.
+
+---
